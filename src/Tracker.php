@@ -166,7 +166,13 @@ class Tracker extends BasePlugin
 	 */
 	public function track(array $params = [])
 	{
+		$settings = $this->getSettings();
 
+		if (!$settings->trackingEnabled)
+		{
+			Craft::info("[Tracker] currently disabled, request not sent");
+			return false;
+		}
 		try
 		{
 
@@ -188,11 +194,11 @@ class Tracker extends BasePlugin
 
 				if ($success)
 				{
-					Craft::info("Tracker request successful! ({$gaUrl})");
+					Craft::info("[Tracker] request successful! ({$gaUrl})");
 					return true;
 				}
 
-				Craft::error("Tracker request failed. ({$gaUrl})");
+				Craft::error("[Tracker] request failed. ({$gaUrl})");
 				return false;
 
 			}
@@ -200,7 +206,7 @@ class Tracker extends BasePlugin
 		}
 		catch(\Exception $e)
 		{
-			Craft::error("Tracker request error. ({$gaUrl}): " . $e->getMessage());
+			Craft::error("[Tracker] request error. ({$gaUrl}): " . $e->getMessage());
 			return false;
 		}
 

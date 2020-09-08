@@ -17,6 +17,11 @@ class Settings extends Model
 	public $trackingId;
 
 	/**
+	 * @var boolean
+	 */
+	public $trackingEnabled = true;
+
+	/**
 	 * @var array
 	 */
 	public $defaultParams = [];
